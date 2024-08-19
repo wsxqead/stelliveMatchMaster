@@ -91,7 +91,7 @@ function createCardElement(value, type) {
   const cardBack = document.createElement("div");
   cardBack.classList.add("card-back");
   const imgBack = document.createElement("img");
-  imgBack.src = "logo.png"; // 카드 뒷면에 표시할 로고 이미지 경로
+  imgBack.src = "img/favicon.png"; // 카드 뒷면에 표시할 로고 이미지 경로
   imgBack.alt = "Logo";
   cardBack.appendChild(imgBack);
 
