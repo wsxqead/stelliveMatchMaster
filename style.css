@@ -52,10 +52,8 @@ h1 {
 
 .card {
   width: 100%;
-  max-width: 200px; /* 화면에 따라 유동적으로 가로 크기 조정 */
-  aspect-ratio: 3 / 4; /* 세로가 더 긴 비율 */
-  background-color: #ecf0f1;
-  border-radius: 10px;
+  max-width: 150px;
+  aspect-ratio: 3 / 4;
   cursor: pointer;
   perspective: 1000px;
 }
@@ -66,11 +64,10 @@ h1 {
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s;
-  transform-origin: center right;
 }
 
 .card.flipped .card-inner {
-  transform: rotateY(-180deg);
+  transform: rotateY(180deg);
 }
 
 .card-front,
@@ -87,12 +84,12 @@ h1 {
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  background-color: #ecf0f1;
+  background-color: #ecf0f1; /* 카드 뒷면 배경색 */
 }
 
 .card-back img {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
 }
 
 .card-front {
@@ -102,31 +99,23 @@ h1 {
 }
 
 .card.matched .card-inner {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .card.cliché .card-back {
-  background-color: #ffcccb; /* 클리셰 타입 - 연한 빨강 */
+  background-color: #ffcccb;
 }
 
 .card.universe .card-back {
-  background-color: #add8e6; /* 유니버스 타입 - 연한 파랑 */
+  background-color: #add8e6;
 }
 
 .card.mystic .card-back {
-  background-color: #d8bfd8; /* 미스틱 타입 - 연한 보라 */
-}
-
-.card.normal .card-back {
-  background-color: #f0e68c; /* 일반 난이도 - 연한 노랑 */
-}
-
-.card.hard .card-back {
-  background-color: #dda0dd; /* 어려움 난이도 - 연한 퍼플 */
+  background-color: #d8bfd8;
 }
 
 @media (max-width: 600px) {
   .card {
-    max-width: 150px; /* 모바일 환경에서 더 작은 크기 */
+    max-width: 120px;
   }
 }
