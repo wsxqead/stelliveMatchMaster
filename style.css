@@ -51,8 +51,12 @@ h1 {
 }
 
 .card {
-  width: 350px;
-  height: 200px;
+  width: 100%;
+  max-width: 200px; /* 화면에 따라 유동적으로 가로 크기 조정 */
+  aspect-ratio: 3 / 4; /* 세로가 더 긴 비율 */
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  cursor: pointer;
   perspective: 1000px;
 }
 
@@ -123,7 +127,6 @@ h1 {
 
 @media (max-width: 600px) {
   .card {
-    width: 100%;
-    height: auto;
+    max-width: 150px; /* 모바일 환경에서 더 작은 크기 */
   }
 }
