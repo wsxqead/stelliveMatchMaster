@@ -1,38 +1,48 @@
 const characters = {
-  cliché: ["stella_c1.jpg", "stella_c2.jpg", "stella_c3.jpg", "stella_c4.jpg"], // 클리셰 이미지 경로
+  cliché: [
+    "stella/stella_c1.png",
+    "stella/stella_c2.png",
+    "stella/stella_c3.png",
+    "stella/stella_c4.png",
+  ],
   universe: [
-    "stella_u1.jpg",
-    "stella_u2.jpg",
-    "stella_u3.jpg",
-    "stella_u4.jpg",
-  ], // 유니버스 이미지 경로
-  mystic: ["stella_m1.jpg", "stella_m2.jpg", "stella_m3.jpg", "stella_m4.jpg"], // 미스틱 이미지 경로
+    "stella/stella_u1.png",
+    "stella/stella_u2.png",
+    "stella/stella_u3.png",
+    "stella/stella_u4.png",
+  ],
+  mystic: [
+    "stella/stella_m1.png",
+    "stella/stella_m2.png",
+    "stella/stella_m3.png",
+    "stella/stella_m4.png",
+  ],
   normal: [
-    "stella_c1.jpg",
-    "stella_c2.jpg",
-    "stella_c3.jpg",
-    "stella_c4.jpg",
-    "stella_u1.jpg",
-    "stella_u2.jpg",
-    "stella_u3.jpg",
-    "stella_u4.jpg",
-    "stella_m1.jpg",
-    "stella_m2.jpg",
-  ], // 1, 2, 3기생 10명
+    "stella/stella_c1.png",
+    "stella/stella_c2.png",
+    "stella/stella_c3.png",
+    "stella/stella_c4.png",
+    "stella/stella_u1.png",
+    "stella/stella_u2.png",
+    "stella/stella_u3.png",
+    "stella/stella_u4.png",
+    "stella/stella_m1.png",
+    "stella/stella_m2.png",
+  ],
   hard: [
-    "stella_c1.jpg",
-    "stella_c2.jpg",
-    "stella_c3.jpg",
-    "stella_c4.jpg",
-    "stella_u1.jpg",
-    "stella_u2.jpg",
-    "stella_u3.jpg",
-    "stella_u4.jpg",
-    "stella_m1.jpg",
-    "stella_m2.jpg",
-    "stella_m3.jpg",
-    "stella_m4.jpg",
-  ], // 1, 2, 3기생 + 사장, 매니저 12명
+    "stella/stella_c1.png",
+    "stella/stella_c2.png",
+    "stella/stella_c3.png",
+    "stella/stella_c4.png",
+    "stella/stella_u1.png",
+    "stella/stella_u2.png",
+    "stella/stella_u3.png",
+    "stella/stella_u4.png",
+    "stella/stella_m1.png",
+    "stella/stella_m2.png",
+    "stella/stella_m3.png",
+    "stella/stella_m4.png",
+  ],
 };
 
 let flippedCards = [];
@@ -91,7 +101,7 @@ function createCardElement(value, type) {
   const cardBack = document.createElement("div");
   cardBack.classList.add("card-back");
   const imgBack = document.createElement("img");
-  imgBack.src = "img/favicon.png"; // 카드 뒷면에 표시할 로고 이미지 경로
+  imgBack.src = "stella/favicon.png"; // 카드 뒷면에 표시할 로고 이미지 경로
   imgBack.alt = "Logo";
   cardBack.appendChild(imgBack);
 
@@ -121,6 +131,7 @@ function flipCard(card) {
 function checkForMatch() {
   const [card1, card2] = flippedCards;
 
+  // 이미지를 비교하여 매칭 여부 확인
   if (
     card1.querySelector(".card-front img").src ===
     card2.querySelector(".card-front img").src
@@ -128,6 +139,10 @@ function checkForMatch() {
     card1.classList.add("matched");
     card2.classList.add("matched");
     matchedCards.push(card1, card2);
+
+    // 매칭된 카드 클릭 불가능하도록 이벤트 리스너 제거
+    card1.removeEventListener("click", flipCard);
+    card2.removeEventListener("click", flipCard);
   } else {
     setTimeout(() => {
       card1.classList.remove("flipped");
@@ -137,7 +152,8 @@ function checkForMatch() {
 
   flippedCards = [];
 
-  if (matchedCards.length === card1.closest(".game-board").children.length) {
+  // 모든 카드가 매칭되었을 때 축하 메시지 출력
+  if (matchedCards.length === document.querySelectorAll(".card").length) {
     setTimeout(() => alert("축하합니다! 모든 카드를 맞추셨습니다!"), 500);
   }
 }
