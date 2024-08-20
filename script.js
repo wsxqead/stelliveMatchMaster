@@ -50,7 +50,16 @@ let matchedCards = [];
 
 function initializeGame(pairCount, type = "normal") {
   const gameBoard = document.getElementById("game-board");
+  const body = document.body; // body 요소를 가져옴
   gameBoard.innerHTML = "";
+
+  if (pairCount === 4) {
+    gameBoard.classList.add("easy");
+    body.classList.add("easy-mode"); // 쉬운 난이도에서 easy-mode 클래스 추가
+  } else {
+    gameBoard.classList.remove("easy");
+    body.classList.remove("easy-mode"); // 쉬운 난이도 이외의 경우 클래스 제거
+  }
 
   let selectedCharacters;
   if (pairCount === 4 && type !== "normal") {
@@ -76,11 +85,11 @@ function initializeGame(pairCount, type = "normal") {
 
 function getGridTemplate(pairCount) {
   if (pairCount === 4) {
-    return "repeat(4, 1fr)"; // 4x2 그리드
+    return "repeat(4, 1fr)";
   } else if (pairCount === 10) {
-    return "repeat(5, 1fr)"; // 5x4 그리드
+    return "repeat(5, 1fr)";
   } else if (pairCount === 12) {
-    return "repeat(6, 1fr)"; // 6x4 그리드
+    return "repeat(6, 1fr)";
   }
 }
 
@@ -123,7 +132,7 @@ function flipCard(card) {
     flippedCards.push(card);
 
     if (flippedCards.length === 2) {
-      checkForMatch();
+      setTimeout(checkForMatch, 1000); // 매칭 여부를 확인하기 전에 1초 딜레이
     }
   }
 }
@@ -131,7 +140,6 @@ function flipCard(card) {
 function checkForMatch() {
   const [card1, card2] = flippedCards;
 
-  // 이미지를 비교하여 매칭 여부 확인
   if (
     card1.querySelector(".card-front img").src ===
     card2.querySelector(".card-front img").src
@@ -140,14 +148,17 @@ function checkForMatch() {
     card2.classList.add("matched");
     matchedCards.push(card1, card2);
 
-    // 매칭된 카드 클릭 불가능하도록 이벤트 리스너 제거
-    card1.removeEventListener("click", flipCard);
-    card2.removeEventListener("click", flipCard);
+    // 매칭된 카드에 대해 flipped 상태를 유지
+    card1.classList.add("flipped");
+    card2.classList.add("flipped");
+
+    // 매칭된 카드의 이벤트 리스너를 비활성화하여 더 이상 클릭되지 않도록 처리
+    // card1.removeEventListener("click", flipCard);
+    // card2.removeEventListener("click", flipCard);
   } else {
-    setTimeout(() => {
-      card1.classList.remove("flipped");
-      card2.classList.remove("flipped");
-    }, 1000);
+    // 매칭되지 않은 경우 다시 뒤집기
+    card1.classList.remove("flipped");
+    card2.classList.remove("flipped");
   }
 
   flippedCards = [];

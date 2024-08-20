@@ -10,13 +10,17 @@ body {
 
 .container {
   text-align: center;
-  max-width: 1200px;
+  max-width: 800px; /* 기본 max-width를 800px로 설정 */
   width: 100%;
   margin: auto;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+}
+
+.easy-mode .container {
+  max-width: 600px; /* 쉬운 난이도에서는 max-width를 600px로 설정 */
 }
 
 h1 {
@@ -48,11 +52,12 @@ h1 {
   display: grid;
   gap: 10px;
   justify-content: center;
+  width: 100%; /* 기본적으로 가로를 채우도록 설정 */
 }
 
 .card {
   width: 100%;
-  max-width: 150px;
+  max-width: 150px; /* 일반적인 카드의 최대 너비 */
   aspect-ratio: 3 / 4;
   cursor: pointer;
   perspective: 1000px;
@@ -92,6 +97,13 @@ h1 {
   height: 60px;
 }
 
+.card-front img {
+  width: 100%; /* 카드의 너비에 맞게 이미지 크기 조정 */
+  height: 100%; /* 카드의 높이에 맞게 이미지 크기 조정 */
+  object-fit: cover; /* 이미지가 카드 크기에 맞게 잘리거나 확대되도록 설정 */
+  border-radius: 10px; /* 카드 모서리와 동일하게 둥글게 처리 */
+}
+
 .card-front {
   transform: rotateY(180deg);
   background-color: #fff;
@@ -99,7 +111,7 @@ h1 {
 }
 
 .card.matched .card-inner {
-  transform: scale(1.05);
+  transform: rotateY(180deg);
 }
 
 .card.cliché .card-back {
@@ -116,6 +128,12 @@ h1 {
 
 @media (max-width: 600px) {
   .card {
-    max-width: 120px;
+    max-width: 120px; /* 모바일 환경에서 카드 크기 조정 */
+  }
+  .game-board {
+    max-width: 100%; /* 모바일에서 가로 너비를 화면에 맞게 조정 */
+  }
+  .game-board.easy {
+    max-width: 90%; /* 쉬운 난이도의 경우 모바일에서 더 줄이기 */
   }
 }
