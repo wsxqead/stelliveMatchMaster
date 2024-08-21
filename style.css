@@ -126,6 +126,23 @@ h1 {
   background-color: #d8bfd8;
 }
 
+.hidden {
+  display: none; /* 화면에서 숨기기 */
+}
+
+.intro-image {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.intro-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 600px) {
   .card {
     max-width: 120px; /* 모바일 환경에서 카드 크기 조정 */
@@ -133,7 +150,9 @@ h1 {
   .game-board {
     max-width: 100%; /* 모바일에서 가로 너비를 화면에 맞게 조정 */
   }
-  .game-board.easy {
-    max-width: 90%; /* 쉬운 난이도의 경우 모바일에서 더 줄이기 */
+
+  .card-back img {
+    width: 30px;
+    height: 30px;
   }
 }

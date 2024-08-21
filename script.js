@@ -50,7 +50,13 @@ let matchedCards = [];
 
 function initializeGame(pairCount, type = "normal") {
   const gameBoard = document.getElementById("game-board");
-  const body = document.body; // body 요소를 가져옴
+  const introImage = document.getElementById("intro-image");
+  const body = document.body;
+
+  // 이미지 숨기고 게임 보드 보이기
+  introImage.classList.add("hidden");
+  gameBoard.classList.remove("hidden");
+
   gameBoard.innerHTML = "";
 
   if (pairCount === 4) {

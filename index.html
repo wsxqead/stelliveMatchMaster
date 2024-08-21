@@ -2,7 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon-16x16.png"
+    />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
     <title>Stellive Character Matching Game</title>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -10,11 +32,15 @@
     <div class="container">
       <h1>Stellive Character Matching Game</h1>
       <div class="difficulty-selector">
-        <button onclick="initializeGame(4, 'cliché')">쉬움 (클리셰)</button>
-        <button onclick="initializeGame(4, 'universe')">쉬움 (유니버스)</button>
-        <button onclick="initializeGame(4, 'mystic')">쉬움 (미스틱)</button>
-        <button onclick="initializeGame(10)">일반 (10쌍)</button>
-        <button onclick="initializeGame(12)">어려움 (12쌍)</button>
+        <button onclick="initializeGame(4, 'cliché')">클리셰</button>
+        <button onclick="initializeGame(4, 'universe')">유니버스</button>
+        <button onclick="initializeGame(4, 'mystic')">미스틱</button>
+        <button onclick="initializeGame(10)">스텔라</button>
+        <button onclick="initializeGame(12)">스텔라이브</button>
+      </div>
+      <!-- 추가할 이미지 영역 -->
+      <div id="intro-image" class="intro-image">
+        <img src="img/image.jpg" alt="Intro Image" />
       </div>
       <div id="game-board" class="game-board"></div>
     </div>
