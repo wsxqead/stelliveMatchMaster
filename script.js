@@ -1,57 +1,60 @@
 const characters = {
-  cliché: [
-    "stella/stella_c1.png",
-    "stella/stella_c2.png",
-    "stella/stella_c3.png",
-    "stella/stella_c4.png",
-  ],
-  universe: [
-    "stella/stella_u1.png",
-    "stella/stella_u2.png",
-    "stella/stella_u3.png",
-    "stella/stella_u4.png",
-  ],
-  mystic: [
-    "stella/stella_m1.png",
-    "stella/stella_m2.png",
-    "stella/stella_m3.png",
-    "stella/stella_m4.png",
-  ],
+  cliché: ["stella_c1", "stella_c2", "stella_c3", "stella_c4"],
+  universe: ["stella_u1", "stella_u2", "stella_u3", "stella_u4"],
+  mystic: ["stella_m1", "stella_m2", "stella_m3", "stella_m4"],
   normal: [
-    "stella/stella_c1.png",
-    "stella/stella_c2.png",
-    "stella/stella_c3.png",
-    "stella/stella_c4.png",
-    "stella/stella_u1.png",
-    "stella/stella_u2.png",
-    "stella/stella_u3.png",
-    "stella/stella_u4.png",
-    "stella/stella_m1.png",
-    "stella/stella_m2.png",
+    "stella_c1",
+    "stella_c2",
+    "stella_c3",
+    "stella_c4",
+    "stella_u1",
+    "stella_u2",
+    "stella_u3",
+    "stella_u4",
+    "stella_m1",
+    "stella_m2",
   ],
   hard: [
-    "stella/stella_c1.png",
-    "stella/stella_c2.png",
-    "stella/stella_c3.png",
-    "stella/stella_c4.png",
-    "stella/stella_u1.png",
-    "stella/stella_u2.png",
-    "stella/stella_u3.png",
-    "stella/stella_u4.png",
-    "stella/stella_m1.png",
-    "stella/stella_m2.png",
-    "stella/stella_m3.png",
-    "stella/stella_m4.png",
+    "stella_c1",
+    "stella_c2",
+    "stella_c3",
+    "stella_c4",
+    "stella_u1",
+    "stella_u2",
+    "stella_u3",
+    "stella_u4",
+    "stella_m1",
+    "stella_m2",
+    "stella_m3",
+    "stella_m4",
   ],
 };
 
 let flippedCards = [];
 let matchedCards = [];
 
-function initializeGame(pairCount, type = "normal") {
+function showDifficultyMenu(menuType) {
+  const normalMenu = document.getElementById("difficulty-selector-normal");
+  const premiumMenu = document.getElementById("difficulty-selector-premium");
+
+  if (menuType === "normal") {
+    normalMenu.classList.remove("hidden");
+    premiumMenu.classList.add("hidden");
+  } else if (menuType === "premium") {
+    normalMenu.classList.add("hidden");
+    premiumMenu.classList.remove("hidden");
+  }
+
+  // 기존 게임 보드를 숨기고 새로운 게임 시작 전 intro 이미지를 다시 보여줌
   const gameBoard = document.getElementById("game-board");
   const introImage = document.getElementById("intro-image");
-  const body = document.body;
+  gameBoard.classList.add("hidden");
+  introImage.classList.remove("hidden");
+}
+
+function initializeGame(pairCount, type, difficulty) {
+  const gameBoard = document.getElementById("game-board");
+  const introImage = document.getElementById("intro-image");
 
   // 이미지 숨기고 게임 보드 보이기
   introImage.classList.add("hidden");
@@ -59,26 +62,31 @@ function initializeGame(pairCount, type = "normal") {
 
   gameBoard.innerHTML = "";
 
-  if (pairCount === 4) {
-    gameBoard.classList.add("easy");
-    body.classList.add("easy-mode"); // 쉬운 난이도에서 easy-mode 클래스 추가
-  } else {
-    gameBoard.classList.remove("easy");
-    body.classList.remove("easy-mode"); // 쉬운 난이도 이외의 경우 클래스 제거
+  let selectedCharacters = [];
+  let extension = ".png"; // 기본 확장자 (일반)
+
+  if (difficulty === "premium") {
+    extension = ".jpg";
   }
 
-  let selectedCharacters;
-  if (pairCount === 4 && type !== "normal") {
+  if (type === "normal") {
+    if (pairCount === 10) {
+      selectedCharacters = characters.normal;
+    } else if (pairCount === 12) {
+      selectedCharacters = characters.hard;
+    }
+  } else {
     selectedCharacters = characters[type];
-  } else if (pairCount === 10) {
-    selectedCharacters = characters.normal;
-  } else if (pairCount === 12) {
-    selectedCharacters = characters.hard;
   }
+
+  // 이미지 경로에 확장자를 추가하여 카드 쌍을 생성
+  const cardValues = shuffle(
+    [...selectedCharacters, ...selectedCharacters].map(
+      (char) => `stella/${char}${extension}`
+    )
+  );
 
   gameBoard.style.gridTemplateColumns = getGridTemplate(pairCount);
-
-  const cardValues = shuffle([...selectedCharacters, ...selectedCharacters]);
 
   cardValues.forEach((value) => {
     const card = createCardElement(value, type);
@@ -157,10 +165,6 @@ function checkForMatch() {
     // 매칭된 카드에 대해 flipped 상태를 유지
     card1.classList.add("flipped");
     card2.classList.add("flipped");
-
-    // 매칭된 카드의 이벤트 리스너를 비활성화하여 더 이상 클릭되지 않도록 처리
-    // card1.removeEventListener("click", flipCard);
-    // card2.removeEventListener("click", flipCard);
   } else {
     // 매칭되지 않은 경우 다시 뒤집기
     card1.classList.remove("flipped");
